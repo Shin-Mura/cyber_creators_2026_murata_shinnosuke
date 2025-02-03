@@ -1,0 +1,161 @@
+//========================================================================================================
+//
+//当たり判定の処理[physics.cpp]
+// Author Murata Shinnosuke
+//
+//========================================================================================================
+#include "physics.h"
+#include "collider.h"
+#include "rigidbody.h"
+
+//========================================================================================================
+//更新処理
+//========================================================================================================
+void Physics::Calc(Collider* pCollider)
+{
+	//コライダーが付いているオブジェクトを取得する
+	std::vector<Object*> vObject = Object::Get<Collider>();
+
+	//オブジェクトの数分繰り返す
+	for (unsigned int i = 0; i < vObject.size(); i++)
+	{
+		//コライダーを取得する
+		Collider* pColliderTarget = vObject[i]->GetComponent<Collider>();
+
+		//コライダーが同じか確認する
+		if (pCollider == pColliderTarget)
+		{
+			//次のループに移行する
+			continue;
+		}
+
+		//コライダーの種類を確認する
+		if (pCollider->GetType() == Collider::TYPE::IS_BOX)
+		{//対象の衝突範囲がボックスの場合
+			//ボックスとボックスの衝突判定処理を行う
+			this->BoxToBox((BoxCollider*)pCollider, (BoxCollider*)pColliderTarget);
+		}
+	}
+}
+
+//========================================================================================================
+//ボックスとボックスの衝突判定処理
+//========================================================================================================
+void Physics::BoxToBox(BoxCollider* pBoxCollider, BoxCollider* pBoxColliderTarget)
+{
+	//範囲を取得する
+	BoxCollider::Range range = pBoxCollider->GetRange();
+	BoxCollider::Range rangeTarget = pBoxColliderTarget->GetRange();
+
+	//----------------------------------------------------------------------------------------------------
+	//当たり判定の処理を行う
+	//----------------------------------------------------------------------------------------------------
+	{
+		bool isCollison = false;   //衝突フラグ
+
+		//上に衝突しているか確認する
+		if (rangeTarget.posMax.y > range.posMin.y &&
+			rangeTarget.posMax.y <= range.posMinOld.y &&
+			rangeTarget.posMax.x > range.posMinOld.x &&
+			rangeTarget.posMin.x < range.posMaxOld.x &&
+			rangeTarget.posMax.z > range.posMinOld.z &&
+			rangeTarget.posMin.z < range.posMaxOld.z)
+		{//上に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_TOP);
+
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//下に衝突しているか確認する
+		if (rangeTarget.posMin.y < range.posMax.y &&
+			rangeTarget.posMin.y >= range.posMaxOld.y &&
+			rangeTarget.posMax.x > range.posMinOld.x &&
+			rangeTarget.posMin.x < range.posMaxOld.x &&
+			rangeTarget.posMax.z > range.posMinOld.z &&
+			rangeTarget.posMin.z < range.posMaxOld.z)
+		{//下に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_BOTTOM);
+
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//右に衝突しているか確認する
+		if (rangeTarget.posMax.x > range.posMin.x &&
+			rangeTarget.posMax.x <= range.posMinOld.x &&
+			rangeTarget.posMax.y > range.posMinOld.y &&
+			rangeTarget.posMin.y < range.posMaxOld.y &&
+			rangeTarget.posMax.z > range.posMinOld.z &&
+			rangeTarget.posMin.z < range.posMaxOld.z)
+		{//右に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_RIGHT);
+
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//左に衝突しているか確認する
+		if (rangeTarget.posMin.x < range.posMax.x &&
+			rangeTarget.posMin.x >= range.posMaxOld.x &&
+			rangeTarget.posMax.y > range.posMinOld.y &&
+			rangeTarget.posMin.y < range.posMaxOld.y &&
+			rangeTarget.posMax.z > range.posMinOld.z &&
+			rangeTarget.posMin.z < range.posMaxOld.z)
+		{//左に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_LEFT);
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//奥に衝突しているか確認する
+		if (rangeTarget.posMax.z > range.posMin.z &&
+			rangeTarget.posMax.z <= range.posMinOld.z &&
+			rangeTarget.posMax.y > range.posMinOld.y &&
+			rangeTarget.posMin.y < range.posMaxOld.y &&
+			rangeTarget.posMax.x > range.posMinOld.x &&
+			rangeTarget.posMin.x < range.posMaxOld.x)
+		{//奥に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_BACK);
+
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//前に衝突しているか確認する
+		if (rangeTarget.posMin.z < range.posMax.z &&
+			rangeTarget.posMin.z >= range.posMaxOld.z &&
+			rangeTarget.posMax.y > range.posMinOld.y &&
+			rangeTarget.posMin.y < range.posMaxOld.y &&
+			rangeTarget.posMax.x > range.posMinOld.x &&
+			rangeTarget.posMin.x < range.posMaxOld.x)
+		{//手前に衝突した場合
+			//衝突時の処理を行う
+			pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_FRONT);
+
+			//衝突フラグを立てる
+			isCollison = true;
+		}
+
+		//衝突フラグを確認する
+		if (isCollison == false)
+		{//衝突フラグが立っていない場合
+			//中に入り込んでいるか確認する
+			if (rangeTarget.posMaxOld.y > range.posMinOld.y &&
+				rangeTarget.posMinOld.y < range.posMaxOld.y &&
+				rangeTarget.posMaxOld.x > range.posMinOld.x &&
+				rangeTarget.posMinOld.x < range.posMaxOld.x &&
+				rangeTarget.posMaxOld.z > range.posMinOld.z &&
+				rangeTarget.posMinOld.z < range.posMaxOld.z)
+			{//中に入り込んでいる場合
+				//衝突時の処理を行う
+				pBoxCollider->Collision(pBoxColliderTarget, Physics::CONTACT::IS_IN);
+			}
+		}
+	}
+}
