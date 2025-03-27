@@ -31,6 +31,25 @@ void Cargo::Init()
 //========================================================================================================
 void Cargo::Update()
 {
+	//回収フラグを確認する
+	if (this->m_isCollect)
+	{
+		//拡大率を小さくする
+		Transform* pTransform = this->GetObj()->GetComponent<Transform>();
+		D3DXVECTOR3 scale = pTransform->GetScale();
+		scale -= {Cargo::SUB_SCALE, Cargo::SUB_SCALE, Cargo::SUB_SCALE};
+		if (scale.x <= 0.0f)
+		{//0になった場合
+			//死亡フラグを立てる
+			this->GetObj()->Death();
+			return;
+		}
+
+		//拡大率を設定する
+		pTransform->SetScale(scale);
+		return;
+	}
+
 	//持ち上げる力と重さを確認する
 	if (this->m_nLiftPower >= this->m_nWeight)
 	{
@@ -64,9 +83,17 @@ void Cargo::Update()
 		//ステップを確認する
 		if ((unsigned int)this->m_nStep < this->m_vRoute.size())
 		{//ルートのコンテナより小さい場合
+			//持ち上げられてる力を確認する
+			float fMove = Cargo::MOVE;
+			if (this->m_nLiftPower >= (this->m_nWeight * 2))
+			{//持ち上げられてる力が質量の2倍の場合
+				//移動量を倍率をかける
+				fMove *= 1.5;
+			}
+
 			//ウェイポイントに向かって移動する
 			float fDire = Benlib::Direction(this->GetComponent<Transform>()->GetPos(), this->m_vRoute[this->m_nStep]).y;
-			this->GetComponent<Rigidbody>()->AddMove({ sinf(fDire) * Cargo::MOVE, 0.0f, cosf(fDire) * Cargo::MOVE });
+			this->GetComponent<Rigidbody>()->AddMove({ sinf(fDire) * fMove, 0.0f, cosf(fDire) * fMove });
 			if (Benlib::Distance(this->GetComponent<Transform>()->GetPos(), this->m_vRoute[this->m_nStep]).y <= Cargo::DIRE_WAYPOINT)
 			{//ウェイポイントに到達した場合
 				//次のステップする
@@ -78,24 +105,6 @@ void Cargo::Update()
 	{
 		//持ち上げられてるフラグを下ろす
 		this->m_isLift = false;
-	}
-
-	//回収フラグを確認する
-	if (this->m_isCollect)
-	{
-		//拡大率を小さくする
-		Transform* pTransform = this->GetObj()->GetComponent<Transform>();
-		D3DXVECTOR3 scale = pTransform->GetScale();
-		scale -= {Cargo::SUB_SCALE, Cargo::SUB_SCALE, Cargo::SUB_SCALE};
-		if (scale.x <= 0.0f)
-		{//0になった場合
-			//死亡フラグを立てる
-			this->GetObj()->Death();
-			return;
-		}
-
-		//拡大率を設定する
-		pTransform->SetScale(scale);
 	}
 }
 

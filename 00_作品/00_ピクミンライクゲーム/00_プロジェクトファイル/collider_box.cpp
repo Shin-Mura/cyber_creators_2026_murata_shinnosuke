@@ -44,22 +44,6 @@ void BoxCollider::Update()
     //範囲を更新する
     this->UpdateRange();
 
-    //トリガーフラグを確認する
-    if (this->GetTrigger() == false)
-    {
-        //コンポーネントを確認する
-        if (this->GetObj()->GetComponent<Rigidbody>() != nullptr)
-        {//リジットボディが付いている場合
-            //当たり判定の演算回数分繰り返す
-            for (int i = 0; i < Collider::CALC_PHYSICS; i++)
-            {
-                //当たり判定の演算を行う
-                Physics::Get()->Calc(this);
-                this->UpdateRange();
-            }
-        }
-    }
-
     //線の位置の設定処理を行う
     this->UpdateLine();
 }
@@ -459,13 +443,13 @@ void BoxCollider::Collision(Collider* pColliderTarget, Physics::CONTACT contact)
         //処理を抜け出す
         break;
     }
-
     //挙動があるか確認する
     Behavior* pBehavior = this->GetObj()->GetComponent<Behavior>();
     if (pBehavior != nullptr)
     {
         //オブジェクトの衝突時の処理を行う
         pBehavior->Collision(pColliderTarget->GetObj(), contact);
+        this->SetCollision(true);
     }
 
     //挙動があるか確認する
@@ -474,6 +458,7 @@ void BoxCollider::Collision(Collider* pColliderTarget, Physics::CONTACT contact)
     {
         //オブジェクトの衝突時の処理を行う
         pBehaviorTarget->Collision(this->GetObj(), contact);
+        pColliderTarget->SetCollision(true);
     }
 }
 

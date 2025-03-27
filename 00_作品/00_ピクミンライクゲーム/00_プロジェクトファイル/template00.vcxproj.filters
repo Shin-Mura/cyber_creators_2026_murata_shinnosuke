@@ -172,9 +172,6 @@
     <Filter Include="ソース ファイル\component\animator\animation">
       <UniqueIdentifier>{4220d9d7-0259-47d9-9355-c5808425dcd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\cursor">
-      <UniqueIdentifier>{476d1b36-5b7f-48a3-9677-7c47d2c2c772}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\bfs">
       <UniqueIdentifier>{3a625c28-3349-4483-bd3f-17d0cc73e94e}</UniqueIdentifier>
     </Filter>
@@ -201,6 +198,9 @@
     </Filter>
     <Filter Include="ソース ファイル\component\behavior\insect_num">
       <UniqueIdentifier>{12f6fc75-cfb1-4ffd-ba98-84f4f2b59d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\component\behavior\cursor">
+      <UniqueIdentifier>{476d1b36-5b7f-48a3-9677-7c47d2c2c772}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,9 +315,6 @@
     <ClCompile Include="timer.cpp">
       <Filter>ソース ファイル\component\behavior\timer</Filter>
     </ClCompile>
-    <ClCompile Include="collider_sphere.cpp">
-      <Filter>ソース ファイル\component\collider</Filter>
-    </ClCompile>
     <ClCompile Include="stage.cpp">
       <Filter>ソース ファイル\manager\stage</Filter>
     </ClCompile>
@@ -337,7 +334,7 @@
       <Filter>ソース ファイル\component\rendering\2D\mask</Filter>
     </ClCompile>
     <ClCompile Include="cursor.cpp">
-      <Filter>ソース ファイル\cursor</Filter>
+      <Filter>ソース ファイル\component\behavior\cursor</Filter>
     </ClCompile>
     <ClCompile Include="insect.cpp">
       <Filter>ソース ファイル\component\behavior\insect</Filter>
@@ -398,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="num_insect.cpp">
       <Filter>ソース ファイル\component\behavior\insect_num</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab.cpp">
+      <Filter>ソース ファイル\object\prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -479,9 +479,6 @@
     <ClInclude Include="pause.h">
       <Filter>ソース ファイル\manager\scene\scene_mode\pause</Filter>
     </ClInclude>
-    <ClInclude Include="action.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="input_action.h">
       <Filter>ソース ファイル\input_action</Filter>
     </ClInclude>
@@ -549,7 +546,7 @@
       <Filter>ソース ファイル\component\rendering\2D\mask</Filter>
     </ClInclude>
     <ClInclude Include="cursor.h">
-      <Filter>ソース ファイル\cursor</Filter>
+      <Filter>ソース ファイル\component\behavior\cursor</Filter>
     </ClInclude>
     <ClInclude Include="prefab.h">
       <Filter>ソース ファイル\object\prefab</Filter>

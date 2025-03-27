@@ -14,49 +14,64 @@ Physics* Physics::m_pInstance = nullptr;
 //========================================================================================================
 //更新処理
 //========================================================================================================
-void Physics::Calc(Collider* pCollider)
+void Physics::Calc()
 {
 	//コライダーを取得する
 	std::vector<Collider*> vCollider = Component::Get<Collider>();
 
-	//オブジェクトの数分繰り返す
-	bool isCollision = false;   //衝突フラグ
+	//コライダーの数分繰り返す
 	for (unsigned int i = 0; i < vCollider.size(); i++)
 	{
-		//コライダーが同じか確認する
-		if (pCollider == vCollider[i])
-		{
+		//トリガーか確認する
+		if (vCollider[i]->GetTrigger())
+		{//トリガーの場合
 			//次のループに移行する
 			continue;
 		}
 
-		//コライダーの種類を確認する
-		if (pCollider->GetType() == Collider::TYPE::IS_BOX)
-		{//対象の衝突範囲がボックスの場合
+		//リジットボディが付いているか確認する
+		if (vCollider[i]->GetObj()->GetComponent<Rigidbody>() == nullptr)
+		{//トリガーの場合
+			//次のループに移行する
+			continue;
+		}
+
+		//コライダーをの数分繰り返す
+		bool isCollision = false;   //衝突フラグ
+		for (unsigned int j = 0; j < vCollider.size(); j++)
+		{
+			//コライダーが同じか確認する
+			if (i == j)
+			{
+				//次のループに移行する
+				continue;
+			}
+
 			//ボックスとボックスの衝突判定処理を行う
-			if (this->BoxToBox((BoxCollider*)pCollider, (BoxCollider*)vCollider[i]))
+			if (this->BoxToBox(((BoxCollider*)vCollider[i]), (BoxCollider*)vCollider[j]))
 			{
 				//衝突フラグを立てる
 				isCollision = true;
 			}
 		}
-	}
 
-	//リジットボディを確認する
-	Rigidbody* pRigidbody = pCollider->GetObj()->GetComponent<Rigidbody>();
-	if (pRigidbody != nullptr)
-	{
-		//衝突フラグを確認する
-		if (isCollision == true)
+		//リジットボディを確認する
+		Rigidbody* pRigidbody = vCollider[i]->GetObj()->GetComponent<Rigidbody>();
+		if (pRigidbody != nullptr)
 		{
-			//空中フラグを下ろす
-			pRigidbody->SetAir(false);
+			//衝突フラグを確認する
+			if (isCollision == true)
+			{
+				//空中フラグを下ろす
+				pRigidbody->SetAir(false);
+			}
+			else
+			{
+				//空中フラグを立てる
+				pRigidbody->SetAir(true);
+			}
 		}
-		else
-		{
-			//空中フラグを立てる
-			pRigidbody->SetAir(true);
-		}
+
 	}
 }
 

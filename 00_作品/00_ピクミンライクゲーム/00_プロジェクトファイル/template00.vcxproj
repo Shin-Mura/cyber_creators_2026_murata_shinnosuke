@@ -153,7 +153,6 @@
     <ClCompile Include="camera_tps.cpp" />
     <ClCompile Include="collider_box.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="collider_sphere.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="digit.cpp" />
@@ -191,6 +190,7 @@
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="plane.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="prefab.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene_mode_game.cpp" />
@@ -228,7 +228,6 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="cargo.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="action.h" />
     <ClInclude Include="input_action.h" />
     <ClInclude Include="insect.h" />
     <ClInclude Include="num_insect.h" />

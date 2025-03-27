@@ -59,7 +59,7 @@ void Cursor::Control()
 	float fDireThumb = atan2f(sThumbLX, sThumbLY);
 
 	//左スティック入力を入力を確認する
-	if (sThumbLX != 0 || sThumbLY != 0)
+	if (abs(sThumbLX) > 5000 || abs(sThumbLY) > 5000)
 	{
 		//移動する
 		pTransform->AddPos({ sinf(fDireThumb) * Cursor::MOVE_SPEED, 0.0f, cosf(fDireThumb) * Cursor::MOVE_SPEED });

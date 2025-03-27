@@ -57,6 +57,7 @@ public:
 
 	void AddMove(D3DXVECTOR3 move) { this->m_move += move; };   //ˆÚ“®—Ê‚Ì‰ÁŽZˆ—
 
+	void SetMove(D3DXVECTOR3 move) { this->m_move = move; };   //ˆÚ“®—Ê‚ÌÝ’è
 	void SetAir(bool isAir) { this->m_isAir = isAir; };
 	void SetGravity(float fGravity) { this->m_fGravity = fGravity; };   //d—Í
 	void SetFriction(float fFriction) { this->m_fFriction = fFriction; };   //–€ŽC

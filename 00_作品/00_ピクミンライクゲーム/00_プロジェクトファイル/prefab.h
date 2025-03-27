@@ -44,6 +44,28 @@
 
 #include "waypoint.h"
 
+////プレハブ
+//class Prefab
+//{
+//public:
+//	//コンストラクタ
+//	Prefab()
+//	{
+//		this->m_vPrefab.clear();   //コンテナ
+//	}
+//
+//	//デストラクタ
+//	~Prefab()
+//	{
+//	}
+//
+//	void AddPrefab(Object* pObejct) { this->m_vPrefab.push_back(pObejct); };   //プレハブの追加
+//
+//
+//private:
+//	std::vector<Object*> m_vPrefab;   //コンテナ
+//};
+
 //背景
 class Background2DPrefab
 {

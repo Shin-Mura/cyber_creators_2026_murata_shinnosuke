@@ -105,6 +105,7 @@ void SceneModeGame::Update()
 	else
 	{//—§‚Á‚Ä‚¢‚È‚¢ê‡
 		Object::UpdateAll();
+		Physics::Get()->Calc();   //“–‚½‚è”»’è
 	}
 }
 

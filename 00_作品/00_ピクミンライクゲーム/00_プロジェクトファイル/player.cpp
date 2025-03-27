@@ -71,7 +71,7 @@ void Player::Control()
 	short sThumbLY = pJoypad->GetState(0)->Gamepad.sThumbLY;   //上下入力
 
 	//左スティックの入力を確認する
-	if (sThumbLX != 0 || sThumbLY != 0)
+	if (abs(sThumbLX) > 5000 || abs(sThumbLY) > 5000)
 	{//左スティックが入力されている場合
 		//倒してる方向を計算する
 		float fDireThumbL = atan2f(sThumbLX, sThumbLY);
