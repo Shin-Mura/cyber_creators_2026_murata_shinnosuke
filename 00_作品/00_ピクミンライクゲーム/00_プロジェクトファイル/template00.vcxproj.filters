@@ -202,6 +202,9 @@
     <Filter Include="ソース ファイル\component\behavior\cursor">
       <UniqueIdentifier>{476d1b36-5b7f-48a3-9677-7c47d2c2c772}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\component\behavior\enemy">
+      <UniqueIdentifier>{f15f7b26-52b6-4221-bea4-e68b2eacbfff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -399,6 +402,9 @@
     <ClCompile Include="prefab.cpp">
       <Filter>ソース ファイル\object\prefab</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>ソース ファイル\component\behavior\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -583,6 +589,9 @@
     </ClInclude>
     <ClInclude Include="num_insect.h">
       <Filter>ソース ファイル\component\behavior\insect_num</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>ソース ファイル\component\behavior\enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

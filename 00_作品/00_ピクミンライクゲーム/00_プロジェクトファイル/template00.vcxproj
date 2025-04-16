@@ -157,6 +157,7 @@
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="digit.cpp" />
     <ClCompile Include="effect.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="cargo.cpp" />
     <ClCompile Include="input.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="cursor.h" />
     <ClInclude Include="digit.h" />
     <ClInclude Include="effect.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="cargo.h" />
     <ClInclude Include="input.h" />

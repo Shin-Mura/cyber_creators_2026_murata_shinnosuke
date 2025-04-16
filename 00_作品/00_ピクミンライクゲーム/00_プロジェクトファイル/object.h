@@ -65,7 +65,8 @@ public:
 	template<class T> T* GetComponent()
 	{
 		//コンポーネントの数分繰り返す
-		for (unsigned int i = 0; i < this->m_vComponent.size(); i++)
+		int nSize = this->m_vComponent.size();
+		for (int i = 0; i < nSize; i++)
 		{
 			//指定のコンポーネントか確認する
 			if (T* pComponent = dynamic_cast<T*>(this->m_vComponent[i]))
@@ -90,7 +91,8 @@ private:
 	int GetOder()
 	{
 		//オブジェクトの数分繰り返す
-		for (unsigned int i = 0; i < Object::m_vObject.size(); i++)
+		int nSize = Object::m_vObject.size();
+		for (int i = 0; i < nSize; i++)
 		{
 			//保存されたオブジェクトを確認する
 			if (Object::m_vObject[i] != this)
@@ -116,97 +118,5 @@ private:
 
 	static std::vector<Object*> m_vObject;   //コンテナ
 };
-
-////空のオブジェクト
-//class ObjectEmpty : public Object   //(親)オブジェクト
-//{
-//public:
-//	//コンストラクタ
-//	ObjectEmpty(std::string sName, int nPriority) : Object(sName, nPriority)
-//	{
-//	}
-//
-//	//デストラクタ
-//	~ObjectEmpty() override
-//	{
-//	}
-//
-//	Object* Create(std::string sName, int nPriority = 3) { return new Object(sName, nPriority); };   //生成処理
-//
-//private:
-//
-//};
-//
-////2Dオブジェクト
-//class Object2D : public Object   //(親)オブジェクト
-//{
-//public:
-//	//コンストラクタ
-//	Object2D(std::string sName, int nPriority) : Object(sName, nPriority)
-//	{
-//	}
-//
-//	//デストラクタ
-//	~Object2D()
-//	{
-//	}
-//
-//private:
-//
-//};
-//
-////3Dオブジェクト
-//class Object3D : public Object   //(親)オブジェクト
-//{
-//public:
-//	//コンストラクタ
-//	Object3D(std::string sName, int nPriority) : Object(sName, nPriority)
-//	{
-//	}
-//
-//	//デストラクタ
-//	~Object3D() override
-//	{
-//	}
-//
-//private:
-//
-//};
-//
-////カメラオブジェクト
-//class ObjectCamera : public Object   //(親)オブジェクト
-//{
-//public:
-//	//コンストラクタ
-//	ObjectCamera(std::string sName, int nPriority) : Object(sName, nPriority)
-//	{
-//	}
-//
-//	//デストラクタ
-//	~ObjectCamera() override
-//	{
-//	}
-//
-//private:
-//
-//};
-//
-////空のオブジェクト
-//class ObjectLight : public Object   //(親)オブジェクト
-//{
-//public:
-//	//コンストラクタ
-//	ObjectLight(std::string sName, int nPriority) : Object(sName, nPriority)
-//	{
-//	}
-//
-//	//デストラクタ
-//	~ObjectLight() override
-//	{
-//	}
-//
-//private:
-//
-//};
 
 #endif // !_OBJECT_H_

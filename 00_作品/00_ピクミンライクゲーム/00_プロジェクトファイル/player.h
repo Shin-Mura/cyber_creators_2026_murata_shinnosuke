@@ -31,6 +31,7 @@ public:
 		this->m_motionPlay = Player::MOTION::IS_NEUTRAL;   //再生中のモーション
 		this->m_pCursor = nullptr;   //カーソル
 		this->m_vInsect.clear();   //虫のコンテナ
+		this->m_pNumInsect = nullptr;   //虫の数
 	}
 
 	//デストラクタ

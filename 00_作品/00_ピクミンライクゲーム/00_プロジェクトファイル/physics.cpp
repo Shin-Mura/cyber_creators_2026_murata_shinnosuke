@@ -20,7 +20,8 @@ void Physics::Calc()
 	std::vector<Collider*> vCollider = Component::Get<Collider>();
 
 	//コライダーの数分繰り返す
-	for (unsigned int i = 0; i < vCollider.size(); i++)
+	int nSize = vCollider.size();
+	for (unsigned int i = 0; i < nSize; i++)
 	{
 		//トリガーか確認する
 		if (vCollider[i]->GetTrigger())
@@ -38,7 +39,7 @@ void Physics::Calc()
 
 		//コライダーをの数分繰り返す
 		bool isCollision = false;   //衝突フラグ
-		for (unsigned int j = 0; j < vCollider.size(); j++)
+		for (int j = 0; j < nSize; j++)
 		{
 			//コライダーが同じか確認する
 			if (i == j)

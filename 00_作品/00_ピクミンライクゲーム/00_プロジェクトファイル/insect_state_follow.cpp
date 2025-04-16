@@ -38,8 +38,9 @@ void InsectFollowState::Throw(D3DXVECTOR3 posThrow, float fDireThrow, float fDis
 {
 	//•ûŒü‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
 	float fRateDist = fDistCursor / Cursor::MAX_DISTANCE;
-	D3DXVECTOR3 move = { sinf(fDireThrow) * (Insect::MOVE_THROW * fRateDist), (Insect::MOVE_THROW * fRateDist) * 0.25f, cosf(fDireThrow) * (Insect::MOVE_THROW * fRateDist) };
+	D3DXVECTOR3 move = { sinf(fDireThrow) * (Insect::MOVE_THROW * fRateDist), (Insect::MOVE_THROW * fRateDist) * 0.5f, cosf(fDireThrow) * (Insect::MOVE_THROW * fRateDist) };
 	this->GetIncect()->GetComponent<Rigidbody>()->SetMove(move);
+	this->GetIncect()->GetComponent<Rigidbody>()->SetAir(true);
 	this->GetIncect()->GetComponent<Transform>()->SetPos({ posThrow.x, posThrow.y, posThrow.z });   //ˆÊ’u‚ğİ’è
 	this->GetIncect()->GetComponent<Insect>()->ChangeState(new InsectThrowState(this->GetIncect()));   //ó‘Ô‚ğ“Š‚°‚ç‚ê‚Ä‚é‚É•ÏX
 }
